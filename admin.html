@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel – Your Brand</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { neon: '#2d8eff', dark: '#0a0a0f', darker: '#06060a' },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+</head>
+<body class="bg-[#06060a] text-gray-200">
+
+    <div id="navbar-placeholder"></div>
+
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-14" data-aos="fade-up">
+                <h1 class="text-4xl sm:text-5xl font-bold font-display text-white">Admin <span class="neon-text">Panel</span></h1>
+                <p class="text-gray-400 mt-2">Manage leads, products, and users</p>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12" data-aos="fade-up">
+                <div class="glass-card p-5 flex items-center gap-4">
+                    <div class="w-12 h-12 bg-neon/10 rounded-xl flex items-center justify-center text-neon text-2xl"><i class="fas fa-inbox"></i></div>
+                    <div><p class="text-2xl font-bold text-white" id="totalLeads">0</p><p class="text-sm text-gray-400">Total Leads</p></div>
+                </div>
+                <div class="glass-card p-5 flex items-center gap-4">
+                    <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center text-green-400 text-2xl"><i class="fas fa-clock"></i></div>
+                    <div><p class="text-2xl font-bold text-white" id="newLeads">0</p><p class="text-sm text-gray-400">New Leads</p></div>
+                </div>
+                <div class="glass-card p-5 flex items-center gap-4">
+                    <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 text-2xl"><i class="fas fa-truck"></i></div>
+                    <div><p class="text-2xl font-bold text-white" id="dispatched">0</p><p class="text-sm text-gray-400">Dispatched</p></div>
+                </div>
+                <div class="glass-card p-5 flex items-center gap-4">
+                    <div class="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center text-purple-400 text-2xl"><i class="fas fa-check-double"></i></div>
+                    <div><p class="text-2xl font-bold text-white" id="delivered">0</p><p class="text-sm text-gray-400">Delivered</p></div>
+                </div>
+            </div>
+
+            <!-- Lead Management Table -->
+            <div class="glass-card-premium p-6 mb-12" data-aos="fade-up">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-semibold text-white">Lead <span class="neon-text">Management</span></h3>
+                    <div class="flex gap-2">
+                        <input type="text" id="searchLead" placeholder="Search leads..." class="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white text-sm focus:border-neon outline-none max-w-xs">
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-300" id="leadsTable">
+                        <thead class="text-xs text-gray-400 uppercase border-b border-white/5">
+                            <tr>
+                                <th class="px-4 py-3">Inquiry ID</th>
+                                <th class="px-4 py-3">Customer</th>
+                                <th class="px-4 py-3">Product</th>
+                                <th class="px-4 py-3">Date</th>
+                                <th class="px-4 py-3">Status</th>
+                                <th class="px-4 py-3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- dynamic rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="grid sm:grid-cols-3 gap-6" data-aos="fade-up">
+                <a href="products.html" class="glass-card p-5 flex items-center gap-4 hover:border-neon/50 transition">
+                    <div class="w-10 h-10 bg-neon/10 rounded-lg flex items-center justify-center text-neon"><i class="fas fa-box"></i></div>
+                    <div><p class="font-medium text-white">Manage Products</p><p class="text-xs text-gray-500">Add, edit, delete</p></div>
+                </a>
+                <div class="glass-card p-5 flex items-center gap-4 hover:border-neon/50 transition cursor-pointer" onclick="exportLeads()">
+                    <div class="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center text-green-400"><i class="fas fa-download"></i></div>
+                    <div><p class="font-medium text-white">Export Leads</p><p class="text-xs text-gray-500">CSV format</p></div>
+                </div>
+                <div class="glass-card p-5 flex items-center gap-4 hover:border-neon/50 transition cursor-pointer">
+                    <div class="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center text-purple-400"><i class="fas fa-cog"></i></div>
+                    <div><p class="font-medium text-white">Settings</p><p class="text-xs text-gray-500">App preferences</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <a href="https://wa.me/918055698328" target="_blank" class="fixed bottom-6 right-6 z-50 w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white text-2xl shadow-2xl shadow-green-500/30 hover:scale-110 transition">
+        <i class="fab fa-whatsapp text-3xl"></i>
+    </a>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        // Simulated leads from localStorage (in real app, fetch from API)
+        let leads = JSON.parse(localStorage.getItem('inquiries') || '[]');
+        // Also load bulk inquiries
+        const bulkLeads = JSON.parse(localStorage.getItem('bulkInquiries') || '[]');
+        leads = leads.concat(bulkLeads);
+
+        // Update stats
+        document.getElementById('totalLeads').textContent = leads.length;
+        document.getElementById('newLeads').textContent = leads.filter(l => l.status === 'New Lead').length;
+        document.getElementById('dispatched').textContent = leads.filter(l => l.status === 'Dispatched').length;
+        document.getElementById('delivered').textContent = leads.filter(l => l.status === 'Delivered').length;
+
+        // Populate leads table
+        const tbody = document.querySelector('#leadsTable tbody');
+        function renderLeads(filteredLeads) {
+            if (!filteredLeads.length) {
+                tbody.innerHTML = `<tr><td colspan="6" class="px-4 py-6 text-center text-gray-500">No leads found</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = filteredLeads.map(lead => `
+                <tr class="border-b border-white/5 hover:bg-white/5">
+                    <td class="px-4 py-3 font-mono text-neon">${lead.inquiryId}</td>
+                    <td class="px-4 py-3">${lead.guestName || lead.contactPerson || 'Unknown'}</td>
+                    <td class="px-4 py-3">${lead.productName || lead.productType || 'N/A'}</td>
+                    <td class="px-4 py-3">${new Date(lead.timestamp).toLocaleDateString()}</td>
+                    <td class="px-4 py-3">
+                        <select onchange="updateStatus('${lead.inquiryId}', this.value)" class="bg-dark border border-white/10 rounded px-2 py-1 text-white text-xs">
+                            <option ${lead.status === 'New Lead' ? 'selected' : ''}>New Lead</option>
+                            <option ${lead.status === 'Contacted' ? 'selected' : ''}>Contacted</option>
+                            <option ${lead.status === 'Negotiation' ? 'selected' : ''}>Negotiation</option>
+                            <option ${lead.status === 'Design Approval' ? 'selected' : ''}>Design Approval</option>
+                            <option ${lead.status === 'Printing' ? 'selected' : ''}>Printing</option>
+                            <option ${lead.status === 'Dispatch' ? 'selected' : ''}>Dispatch</option>
+                            <option ${lead.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+                        </select>
+                    </td>
+                    <td class="px-4 py-3">
+                        <button onclick="contactLead('${lead.guestPhone || lead.phone}')" class="text-green-400 hover:text-green-300 mr-3" title="WhatsApp"><i class="fab fa-whatsapp"></i></button>
+                        <button onclick="deleteLead('${lead.inquiryId}')" class="text-red-400 hover:text-red-300" title="Delete"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        renderLeads(leads);
+
+        // Search functionality
+        document.getElementById('searchLead').addEventListener('input', function() {
+            const term = this.value.toLowerCase();
+            const filtered = leads.filter(l => 
+                (l.inquiryId && l.inquiryId.toLowerCase().includes(term)) ||
+                (l.guestName && l.guestName.toLowerCase().includes(term)) ||
+                (l.contactPerson && l.contactPerson.toLowerCase().includes(term))
+            );
+            renderLeads(filtered);
+        });
+
+        window.updateStatus = function(inquiryId, newStatus) {
+            leads = leads.map(l => {
+                if (l.inquiryId === inquiryId) {
+                    return { ...l, status: newStatus };
+                }
+                return l;
+            });
+            // Update localStorage
+            const allInquiries = JSON.parse(localStorage.getItem('inquiries') || '[]');
+            const allBulk = JSON.parse(localStorage.getItem('bulkInquiries') || '[]');
+            const updatedInquiries = allInquiries.map(l => l.inquiryId === inquiryId ? { ...l, status: newStatus } : l);
+            const updatedBulk = allBulk.map(l => l.inquiryId === inquiryId ? { ...l, status: newStatus } : l);
+            localStorage.setItem('inquiries', JSON.stringify(updatedInquiries));
+            localStorage.setItem('bulkInquiries', JSON.stringify(updatedBulk));
+            showToast('Status updated');
+            // Refresh stats
+            document.getElementById('newLeads').textContent = leads.filter(l => l.status === 'New Lead').length;
+            document.getElementById('dispatched').textContent = leads.filter(l => l.status === 'Dispatched').length;
+            document.getElementById('delivered').textContent = leads.filter(l => l.status === 'Delivered').length;
+        };
+
+        window.contactLead = function(phone) {
+            if (!phone) phone = '';
+            const msg = 'Hello, this is Your Brand regarding your inquiry.';
+            window.open(`https://wa.me/91${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+        };
+
+        window.deleteLead = function(inquiryId) {
+            if (confirm('Delete this lead?')) {
+                leads = leads.filter(l => l.inquiryId !== inquiryId);
+                let allInquiries = JSON.parse(localStorage.getItem('inquiries') || '[]');
+                let allBulk = JSON.parse(localStorage.getItem('bulkInquiries') || '[]');
+                allInquiries = allInquiries.filter(l => l.inquiryId !== inquiryId);
+                allBulk = allBulk.filter(l => l.inquiryId !== inquiryId);
+                localStorage.setItem('inquiries', JSON.stringify(allInquiries));
+                localStorage.setItem('bulkInquiries', JSON.stringify(allBulk));
+                renderLeads(leads);
+                document.getElementById('totalLeads').textContent = leads.length;
+                showToast('Lead deleted');
+            }
+        };
+
+        window.exportLeads = function() {
+            const csv = ['ID,Product,Customer,Date,Status'].concat(
+                leads.map(l => `${l.inquiryId},${l.productName || l.productType},${l.guestName || l.contactPerson},${new Date(l.timestamp).toLocaleDateString()},${l.status}`)
+            ).join('\n');
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'leads.csv';
+            a.click();
+        };
+    </script>
+</body>
+</html>
