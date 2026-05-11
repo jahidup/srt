@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard – Your Brand</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { neon: '#2d8eff', dark: '#0a0a0f', darker: '#06060a' },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+</head>
+<body class="bg-[#06060a] text-gray-200">
+
+    <div id="navbar-placeholder"></div>
+
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-14" data-aos="fade-up">
+                <h1 class="text-4xl sm:text-5xl font-bold font-display text-white">My <span class="neon-text">Dashboard</span></h1>
+                <p class="text-gray-400 mt-2">Manage your inquiries, wishlist, and bulk orders</p>
+            </div>
+
+            <!-- Stats cards -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" data-aos="fade-up">
+                <div class="glass-card p-6 flex items-center gap-4">
+                    <div class="w-12 h-12 bg-neon/10 rounded-xl flex items-center justify-center text-neon text-2xl"><i class="fas fa-clipboard-list"></i></div>
+                    <div>
+                        <p class="text-2xl font-bold text-white" id="totalInquiries">0</p>
+                        <p class="text-sm text-gray-400">Total Inquiries</p>
+                    </div>
+                </div>
+                <div class="glass-card p-6 flex items-center gap-4">
+                    <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center text-green-400 text-2xl"><i class="fas fa-check-circle"></i></div>
+                    <div>
+                        <p class="text-2xl font-bold text-white" id="activeOrders">0</p>
+                        <p class="text-sm text-gray-400">Active Orders</p>
+                    </div>
+                </div>
+                <div class="glass-card p-6 flex items-center gap-4">
+                    <div class="w-12 h-12 bg-red-500/10 rounded-xl flex items-center justify-center text-red-400 text-2xl"><i class="fas fa-heart"></i></div>
+                    <div>
+                        <p class="text-2xl font-bold text-white" id="wishlistCount">0</p>
+                        <p class="text-sm text-gray-400">Wishlist Items</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Inquiries Table -->
+            <div class="glass-card-premium p-6 mb-12" data-aos="fade-up">
+                <h3 class="text-xl font-semibold text-white mb-6">Recent <span class="neon-text">Inquiries</span></h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-300" id="inquiriesTable">
+                        <thead class="text-xs text-gray-400 uppercase border-b border-white/5">
+                            <tr>
+                                <th class="px-4 py-3">Inquiry ID</th>
+                                <th class="px-4 py-3">Product</th>
+                                <th class="px-4 py-3">Date</th>
+                                <th class="px-4 py-3">Status</th>
+                                <th class="px-4 py-3">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- dynamic rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Quick Bulk Order Section (inside dashboard) -->
+            <div class="glass-card-premium p-6" data-aos="fade-up">
+                <h3 class="text-xl font-semibold text-white mb-6">New <span class="neon-text">Bulk Order</span> Inquiry</h3>
+                <form id="dashboardBulkForm" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <input type="text" name="instituteName" placeholder="Institute Name" required class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-neon outline-none">
+                    <input type="text" name="contactPerson" placeholder="Contact Person" required class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-neon outline-none">
+                    <input type="tel" name="phone" placeholder="Phone" required class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-neon outline-none">
+                    <input type="email" name="email" placeholder="Email" required class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-neon outline-none">
+                    <select name="productType" class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-neon outline-none">
+                        <option>T‑Shirt</option><option>Polo</option><option>Hoodie</option><option>Jersey</option><option>Other</option>
+                    </select>
+                    <input type="number" name="quantity" placeholder="Quantity" required min="50" class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-neon outline-none">
+                    <input type="text" name="sizes" placeholder="Sizes (e.g., S,M,L)" class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-neon outline-none">
+                    <input type="date" name="deadline" class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-neon outline-none">
+                    <input type="text" name="budget" placeholder="Budget" class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-neon outline-none">
+                    <button type="submit" class="btn-primary col-span-full py-4 text-base">Submit Bulk Inquiry & Chat on WhatsApp</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-placeholder"></div>
+
+    <a href="https://wa.me/918055698328" target="_blank" class="fixed bottom-6 right-6 z-50 w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white text-2xl shadow-2xl shadow-green-500/30 hover:scale-110 transition">
+        <i class="fab fa-whatsapp text-3xl"></i>
+    </a>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        // Simulate user data from localStorage
+        const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        const inquiries = JSON.parse(localStorage.getItem('inquiries') || '[]');
+        const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+
+        // Update stats
+        document.getElementById('totalInquiries').textContent = inquiries.length;
+        document.getElementById('wishlistCount').textContent = wishlist.length;
+        document.getElementById('activeOrders').textContent = inquiries.filter(i => i.status === 'New Lead' || i.status === 'Processing').length;
+
+        // Populate inquiries table
+        const tbody = document.querySelector('#inquiriesTable tbody');
+        if (inquiries.length > 0) {
+            tbody.innerHTML = inquiries.map(inq => `
+                <tr class="border-b border-white/5 hover:bg-white/5">
+                    <td class="px-4 py-3 font-mono text-neon">${inq.inquiryId}</td>
+                    <td class="px-4 py-3">${inq.productName || 'N/A'}</td>
+                    <td class="px-4 py-3">${new Date(inq.timestamp).toLocaleDateString()}</td>
+                    <td class="px-4 py-3"><span class="px-2 py-1 text-xs rounded-full bg-neon/20 text-neon">${inq.status || 'New Lead'}</span></td>
+                    <td class="px-4 py-3"><button onclick="openWhatsApp('${inq.inquiryId}')" class="text-green-400 hover:text-green-300"><i class="fab fa-whatsapp"></i> Chat</button></td>
+                </tr>
+            `).join('');
+        } else {
+            tbody.innerHTML = `<tr><td colspan="5" class="px-4 py-6 text-center text-gray-500">No inquiries yet. <a href="products.html" class="text-neon hover:underline">Browse products</a></td></tr>`;
+        }
+
+        window.openWhatsApp = function(id) {
+            const msg = `Hi, I'm following up on my inquiry ${id}.`;
+            window.open(`https://wa.me/918055698328?text=${encodeURIComponent(msg)}`, '_blank');
+        };
+
+        // Bulk order form inside dashboard
+        document.getElementById('dashboardBulkForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            const inquiryId = 'BLK-' + Date.now().toString(36).toUpperCase();
+            const newInquiry = {
+                inquiryId,
+                productName: data.productType,
+                quantity: data.quantity,
+                budget: data.budget,
+                timestamp: new Date().toISOString(),
+                status: 'New Lead',
+                institute: data.instituteName
+            };
+            inquiries.push(newInquiry);
+            localStorage.setItem('inquiries', JSON.stringify(inquiries));
+            const msg = `📦 *Bulk Order*\n🏢 ${data.instituteName}\n👤 ${data.contactPerson}\n📞 ${data.phone}\n📧 ${data.email}\n🔢 ${data.quantity} pcs\n💰 ${data.budget}`;
+            window.open(`https://wa.me/918055698328?text=${encodeURIComponent(msg)}`, '_blank');
+            showToast('Bulk inquiry submitted!');
+            setTimeout(() => location.reload(), 500);
+        });
+    </script>
+</body>
+</html>
